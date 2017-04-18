@@ -8,9 +8,16 @@ export class DFANode {
 }
 
 export class DFAEdge {
-    /** Symbol */
-    label: string;
+    symbol: string;
     destination: DFANode;
+
+    private get label() {
+        if (this.symbol.length > 0) {
+            return this.symbol;
+        } else {
+            return "λ";
+        }
+    }
 }
 
 export class DFAGraph {
