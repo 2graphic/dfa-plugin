@@ -67,16 +67,16 @@ export function start(input: DFAGraph, data: string): State | boolean {
         if (node.children) {
             let transitions = new Set<string>();
             for (const edge of node.children) {
-                if (isEmpty(edge.label)) {
+                if (isEmpty(edge.symbol)) {
                     throw new Error("Lambda transition from " + node.label + " to " + edge.destination.label + " is not allowed");
                 }
-                if (edge.label.length > 1) {
-                    throw new Error("Edge " + edge.label + " must be one symbol");
+                if (edge.symbol.length > 1) {
+                    throw new Error("Edge " + edge.symbol + " must be one symbol");
                 }
-                if (transitions.has(edge.label)) {
-                    throw new Error("Nondeterministic edge " + edge.label + (isEmpty(node.label) ? "" : (" from node: " + node.label)));
+                if (transitions.has(edge.symbol)) {
+                    throw new Error("Nondeterministic edge " + edge.symbol + (isEmpty(node.label) ? "" : (" from node: " + node.label)));
                 }
-                transitions.add(edge.label);
+                transitions.add(edge.symbol);
             }
         }
     }
@@ -93,7 +93,7 @@ export function step(current: State): State | boolean {
         return current.active.isAcceptState === true;
     }
     const destinations = current.active.children
-        .filter(edge => edge.label === current.inputLeft[0])
+        .filter(edge => edge.symbol === current.inputLeft[0])
         .map(edge => edge.destination);
 
     if (destinations.length === 1) {
