@@ -25,10 +25,6 @@ export class DFANode {
             y: 0
         };
     }
-
-    private get shape(): string {
-        return "circle";
-    }
 }
 
 export class DFAEdge {
